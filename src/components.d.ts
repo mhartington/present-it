@@ -5,12 +5,51 @@
  */
 
 
+declare global {
+  interface HTMLStencilElement extends HTMLElement {
+    componentOnReady(): Promise<this>;
+    componentOnReady(done: (ele?: this) => void): void;
+  }
+}
+
+
+
+import {
+  Code as RevealCode
+} from './components/code/code';
+
+declare global {
+  interface HTMLRevealCodeElement extends RevealCode, HTMLStencilElement {
+  }
+  var HTMLRevealCodeElement: {
+    prototype: HTMLRevealCodeElement;
+    new (): HTMLRevealCodeElement;
+  };
+  interface HTMLElementTagNameMap {
+    "reveal-code": HTMLRevealCodeElement;
+  }
+  interface ElementTagNameMap {
+    "reveal-code": HTMLRevealCodeElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "reveal-code": JSXElements.RevealCodeAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface RevealCodeAttributes extends HTMLAttributes {
+      lang?: string;
+    }
+  }
+}
+
+
 import {
   Deck as RevealDeck
 } from './components/deck/deck';
 
 declare global {
-  interface HTMLRevealDeckElement extends RevealDeck, HTMLElement {
+  interface HTMLRevealDeckElement extends RevealDeck, HTMLStencilElement {
   }
   var HTMLRevealDeckElement: {
     prototype: HTMLRevealDeckElement;
@@ -36,11 +75,41 @@ declare global {
 
 
 import {
+  Markdown as RevealMd
+} from './components/markdown/markdown';
+
+declare global {
+  interface HTMLRevealMdElement extends RevealMd, HTMLStencilElement {
+  }
+  var HTMLRevealMdElement: {
+    prototype: HTMLRevealMdElement;
+    new (): HTMLRevealMdElement;
+  };
+  interface HTMLElementTagNameMap {
+    "reveal-md": HTMLRevealMdElement;
+  }
+  interface ElementTagNameMap {
+    "reveal-md": HTMLRevealMdElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "reveal-md": JSXElements.RevealMdAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface RevealMdAttributes extends HTMLAttributes {
+      
+    }
+  }
+}
+
+
+import {
   Slide as RevealSlide
 } from './components/slide/slide';
 
 declare global {
-  interface HTMLRevealSlideElement extends RevealSlide, HTMLElement {
+  interface HTMLRevealSlideElement extends RevealSlide, HTMLStencilElement {
   }
   var HTMLRevealSlideElement: {
     prototype: HTMLRevealSlideElement;

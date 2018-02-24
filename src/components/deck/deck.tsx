@@ -1,22 +1,34 @@
 import { Component, Element, Listen, State } from '@stencil/core';
+import createHistory from 'history/createBrowserHistory';
 @Component({
   tag: `reveal-deck`,
   styleUrl: 'deck.scss'
 })
 export class Deck {
   slides: Array<any> = [];
-  buffer: number = 3;
   activeIndex = 0;
-  matcher = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+  history = createHistory();
 
   @State() backgroundColor: string = 'transparent';
-  @State() backgroundImage: string = 'none';
-
   @Element() deck: HTMLElement;
 
   componentWillLoad() {
     this.slides = Array.from(this.deck.querySelectorAll('reveal-slide'));
-    this.handleSlides();
+    this.checkSlide(this.history.location);
+    this.history.listen(location => {
+      this.checkSlide(location);
+    });
+  }
+
+  checkSlide(location) {
+    const urlHash = parseInt(location.pathname.replace('/', ''), 10);
+    if (isNaN(urlHash)) {
+      this.history.push('/0');
+      this.handleSlides();
+    } else {
+      this.activeIndex = urlHash;
+      this.handleSlides();
+    }
   }
 
   handleSlides() {
@@ -28,26 +40,23 @@ export class Deck {
   @Listen('slideDidChange')
   slideDidChangeHandler(event) {
     this.setBackgroundColor(event.detail.backgroundColor);
-    this.setBackgroundImg(event.detail.backgroundImage);
   }
 
-  @Listen('window:keyup.right')
+  @Listen('window:keydown.right')
   protected next() {
     if (this.activeIndex < this.slides.length - 1) {
       this.activeIndex++;
+      this.history.push(`/${this.activeIndex}`);
       this.handleSlides();
-    } else {
-      console.log('no more slides!');
     }
   }
 
-  @Listen('window:keyup.left')
+  @Listen('window:keydown.left')
   protected prev() {
     if (this.activeIndex > 0) {
       this.activeIndex--;
+      this.history.push(`/${this.activeIndex}`);
       this.handleSlides();
-    } else {
-      console.log('cannot go back, already at 0');
     }
   }
 
@@ -76,14 +85,6 @@ export class Deck {
     }
   }
 
-  protected setBackgroundImg(url) {
-    if (url !== undefined) {
-      this.backgroundImage = `url('${url}')`;
-    } else {
-      this.backgroundImage = 'none';
-    }
-  }
-
   render() {
     return [
       <div class="reveal-slides">
@@ -97,10 +98,4 @@ export class Deck {
       />
     ];
   }
-  // <div
-  //   class="reveal-background-image"
-  //   style={{
-  //     backgroundImage: this.backgroundImage
-  //   }}
-  // />,
 }

@@ -1,25 +1,28 @@
 reveal-slide {
   bottom: 0;
   left: 0;
-  // opacity: 0;
+  opacity: 0;
   overflow: hidden;
   position: absolute;
   right: 0;
   top: 0;
-  transform: all 300ms ease-in;
   width: 100%;
+  pointer-events: none;
 
-  // &[active='true'] {
-  //   opacity: 1;
-  // }
-
-  div {
-    align-items: center;
-    backface-visibility: hidden;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
+  &.active,
+  &.active > * {
+    pointer-events: initial;
+    opacity: 1;
   }
+  .slide-wrapper {
+  align-items: center;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 80%;
+}
 }

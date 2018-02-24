@@ -7,51 +7,372 @@
   <meta name="theme-color" content="#16161d">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
+  <title>StencilJS and Web Components</title>
   <script src="/build/app.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations-next.min.js" async defer></script>
   <link rel="apple-touch-icon" href="/assets/icon/icon.png">
   <link rel="icon" type="image/x-icon" href="/assets/icon/favicon.ico">
   <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
-
   <reveal-deck>
-    <!-- <reveal&#45;slide> -->
-    <!--   <h1>Slide 1</h1> -->
-    <!-- </reveal&#45;slide> -->
-    <!-- <reveal&#45;slide> -->
-    <!--   <h1>Slide 2</h1> -->
-    <!-- </reveal&#45;slide> -->
-    <!-- <reveal&#45;slide > -->
-    <!--   <h1>Slide 3</h1> -->
-    <!-- </reveal&#45;slide> -->
-    <!-- <reveal&#45;slide > -->
-    <!--   <h1>Slide 4</h1> -->
-    <!-- </reveal&#45;slide> -->
-    <!-- <reveal&#45;slide > -->
-    <!--   <h1>Slide 5</h1> -->
-    <!-- </reveal&#45;slide> -->
 
+    <reveal-slide>
+      <h2 style="font-weight: bolder; font-family: 'Avenir Next'; font-size: 2.4em">Stencil</h2>
+      <reveal-md>
+        ### The Rise of Web Components
+
+        [Mike Hartington | @mhartington](https://twitter.com/mhartington)
+
+      </reveal-md>
+    </reveal-slide>
+
+    <reveal-slide>
+      <reveal-md>
+        ### _Back in the Day…_
+      </reveal-md>
+    </reveal-slide>
 
 
     <reveal-slide>
-      <h1>Slide 1</h1>
-    </reveal-slide>
-    <reveal-slide background-color="red">
-      <h1 style="color: white">Slide 2</h1>
-    </reveal-slide>
-    <reveal-slide background-color="#1b2b34">
-      <h1 style="color: white">Slide 3</h1>
-    </reveal-slide>
-    <reveal-slide background-color="rgb(250,200,99)">
-      <h1>Slide 4</h1>
-    </reveal-slide>
-    <reveal-slide background-color="rgba(153,199,148,0.5)">
-      <h1>Slide 5</h1>
-    </reveal-slide>
-  </reveal-deck>
+      <reveal-md>
+        ### 2013
 
+        - Components were glorified jQuery Plugins
+        - Doing them right was hard
+        - Frameworks at the time: 🗑 🔥
+      </reveal-md>
+
+
+    </reveal-slide>
+
+    <reveal-slide>
+      "State of the art"
+
+      <reveal-code lang="javascript">
+        var AppView = Backbone.View.extend({
+          el: $('#target'),
+          initialize: function() {
+            this.render();
+          },
+          render: function() {
+            this.$el.html('<h1>Hello World</h1>');
+          }
+        });
+        var App = new AppView();
+      </reveal-code>
+    </reveal-slide>
+
+    <reveal-slide>
+      <reveal-md>
+        ### JavaScript at the time
+
+        - jQuery - not really a "framework"
+        - Backbone - too much JS
+        - AngularJS - still pretty new
+      </reveal-md>
+    </reveal-slide>
+
+    <reveal-slide>
+
+      <reveal-md>
+        AngularJS Directives
+
+        # 💙
+
+      </reveal-md>
+      <p>
+        ¯\_(ツ)_/¯
+      </p>
+
+    </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Fast Forward
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      - Angular/(P)React/VueJs
+      - All high quality
+      - **All center around components**
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <p>
+      Yet a different API for each one
+    </p>
+
+    <p>
+      "Yo Dawg, I heard you like component APIs"
+    </p>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Enter Web Components
+    </reveal-md>
+    <img src="https://cdn.rawgit.com/webcomponents/webcomponents-icons/master/logo/logo.svg" alt="">
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### What even is a web component?
+
+      Vanilla JS API for reusable components
+
+      Built into the browser
+
+      Easily polyfill-able
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <img src="https://imgs.xkcd.com/comics/standards.png" />
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-code  lang="js">
+
+      class BetterImg extends HTMLElement {
+        constructor() {
+          super();
+          this.usingFallback = false;
+        }
+
+        get defaultWidth() {
+          return 480;
+        }
+
+        get defaultHeight() {
+          return 640;
+        }
+
+        connectedCallback() {
+          this.init();
+        }
+
+        init() {
+          this.innerHTML = this.template;
+          this.addErrorListener();
+          this.setSrc(this.url);
+        }
+
+        addErrorListener() {
+          this.querySelector('img').onerror = this.onImgError.bind(this);
+        }
+
+        get url() {
+          return this.getAttribute('url');
+        }
+
+        set url(value) {
+          return (this.url = value);
+        }
+
+        get width() {
+          return this.getAttribute('width') || this.defaultWidth;
+        }
+
+        get height() {
+          return this.getAttribute('height') || this.defaultHeight;
+        }
+
+        get fallback() {
+          return this.getAttribute('fallback');
+        }
+
+        get logCallback() {
+          return this.getAttribute('log');
+        }
+
+        get altText() {
+          return this.getAttribute('alt') || '';
+        }
+
+        get template() {
+          return `
+              &lt;img
+                width=${this.width}
+                height=${this.height}
+                alt="${this.altText}"
+              /&gt;
+            `;
+        }
+
+        onImgError(err) {
+          this.logError(err);
+          this.useFallback();
+        }
+
+        useFallback() {
+          if (this.fallback && !this.usingFallback) {
+            this.setAttribute('url', this.fallback);
+            this.setSrc(this.fallback);
+            this.usingFallback = true;
+          }
+        }
+
+        logError(err) {
+          if (this.logCallback) {
+            window[this.logCallback](err);
+          }
+        }
+
+        setSrc(url) {
+          this.querySelector('img').src = url;
+        }
+      }
+
+      customElements.define('better-img', BetterImg);
+    </reveal-code>
+    <reveal-md>
+      [pearlbea/better-img](http://github.com/pearlbea/better-img)
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Powerful
+
+      But too low level
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ## What's missing?
+      - Reactive Data-binding
+      - First class TS support
+      - JSX/VDOM for speed
+      - SSR, pre-compilation
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <img src="https://stenciljs.com/assets/img/stencil-logo-new.svg" width="550" />
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Stencil…Another framework?
+      - Compiler for Web Components
+      - Outputs Standard JS, no cost of framework
+      - Borrows from other frameworks
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### What stencil is not
+
+      A framework
+
+      ## 😬
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide background-color="#1b2b34">
+    <h1>
+      <code style="color: #99c794">$ Demo</code>
+    </h1>
+  </reveal-slide>
+
+  <reveal-slide>
+    <h3>API</h3>
+
+    <table>
+      <tbody>
+        <tr class="odd">
+          <td><code>@Component</code></td>
+          <td>Decorate a class as web component</td>
+        </tr>
+        <tr class="even">
+          <td><code>@Prop()</code></td>
+          <td>Expose a class property as an element property</td>
+        </tr>
+        <tr class="odd">
+          <td><code>@State()</code></td>
+          <td>Internal data that can cause a rerender</td>
+        </tr>
+        <tr class="even">
+          <td><code>@Event()</code></td>
+          <td>Decorator for custom events</td>
+        </tr>
+        <tr class="odd">
+          <td><code>@Listen()</code></td>
+          <td>Decorator for listening to custom events</td>
+        </tr>
+        <tr class="even">
+          <td><code>@Element()</code></td>
+          <td>Get a raw DOM reference to the current component</td>
+        </tr>
+      </tbody>
+    </table>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### But wait…
+
+      Angular Elements?
+
+      Vue Web Component?
+
+      _Similar Ideas, different goals_
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Shoutouts
+
+      - [SkateJS](https://github.com/skatejs/skatejs)
+      - [Lit-Element](https://www.npmjs.com/package/lit-html-element)
+      - [Nutmeg](https://github.com/abraham/nutmeg-cli)
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### What's next?
+
+      - Docs: [stenciljs.com](https://stenciljs.com/docs/intro)
+      - Ionic/core 4.0 Built with Stencil
+    </reveal-md>
+  </reveal-slide>
+
+  <reveal-slide>
+    <h3>Um...demos please?</h3>
+  </reveal-slide>
+
+  <reveal-slide>
+    <h2>THIS PRESENTATION!</h2>
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Build something cool?
+
+      Let us know, [@stenciljs](https://twitter.com/@stenciljs)
+    </reveal-md>
+    <br>
+    <img src="assets/imgs/stencil-badge.svg" width="300" alt="">
+  </reveal-slide>
+
+  <reveal-slide>
+    <reveal-md>
+      ### Thank you!
+      #### [stenciljs.com](https://stenciljs.com/)
+      `&lt;/html&gt;`
+    </reveal-md>
+  </reveal-slide>
+
+  </reveal-deck>
 </body>
 
 </html>
