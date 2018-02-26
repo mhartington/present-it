@@ -1,5 +1,45 @@
+:root {
+  --base-background-color: #2b2b2b;
+
+  // Primary/body text
+  --base-font-family: 'Lato', sans-serif;
+  --base-font-size: 2.5vw;
+  --base-text-color: #eee;
+
+  // Vertical spacing between blocks of text
+  --base-block-margin: 20px;
+
+  // Headings
+  --base-heading-margin: 0 0 --base-block-margin 0;
+  --base-heading-font-family: 'League Gothic', Impact, sans-serif;
+  --base-heading-color: #eee;
+  --base-heading-line-height: 1.2;
+  --base-heading-letter-spacing: normal;
+  --base-heading-text-transform: uppercase;
+  --base-heading-text-shadow: none;
+  --base-heading-font-weight: normal;
+
+  --base-heading1-size: 3.77em;
+  --base-heading2-size: 2.11em;
+  --base-heading3-size: 1.55em;
+  --base-heading4-size: 1em;
+
+  --base-code-font: 'Hasklig', monospace;
+
+  // Links and actions
+  --base-link-color: #13daec;
+  --base-link-color-hover: #8eedf6;
+
+  // Text selection
+  --base-selection-background-color: #ff5e99;
+  --base-selection-color: #fff;
+
+  --base-progress-color: #0072bc;
+}
+
 html,
 body {
+  background: #000000;
   height: 100%;
   margin: 0;
   overflow: hidden;
@@ -10,21 +50,39 @@ body {
 * {
   box-sizing: border-box;
   font-family: sans-serif;
-  font-weight: 300;
 }
 
-reveal-deck {
+::selection {
+  color: var(--base-selection-color);
+  background: var(--base-selection-background-color);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  color: var(--base-selection-color);
+  background: var(--base-selection-background-color);
+  text-shadow: none;
+}
+
+present-deck {
   align-content: stretch;
   align-items: stretch;
+  background: var(--base-background-color);
+  color: var(--base-text-color);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  font-size: var(--base-font-size);
   height: 100%;
   justify-content: center;
+  transition: 300ms opacity cubic-bezier(0.26, 0.86, 0.44, 0.985);
   width: 100%;
-  font-size: 42px;
 
-  .reveal-background-color {
+  &.pause {
+    opacity: 0;
+  }
+
+  .present-background-color {
     bottom: 0;
     left: 0;
     overflow: hidden;
@@ -33,10 +91,9 @@ reveal-deck {
     top: 0;
     transition: background 300ms ease-in;
     width: 100%;
-    z-index: -2;
   }
 
-  .reveal-background-image {
+  .present-background-image {
     background-repeat: no-repeat;
     background-size: cover;
     bottom: 0;
@@ -47,7 +104,7 @@ reveal-deck {
     top: 0;
     transition: background 300ms ease-in;
     width: 100%;
-    z-index: -1;
+    z-index: 1;
   }
 
   h1,
@@ -56,55 +113,78 @@ reveal-deck {
   h4,
   h5,
   h6 {
-    margin: 0 0 20px 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-      sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    font-weight: 400;
-    line-height: 1.2;
+    font-family: var(--base-heading-font-family);
+    font-weight: var(--base-heading-font-weight);
     letter-spacing: normal;
+    line-height: 1.2;
+    margin: var(--base-heading-margin);
     text-transform: uppercase;
     text-shadow: none;
     word-wrap: break-word;
   }
 
   h1 {
-    font-size: 2.5em;
+    font-size: var(--base-heading1-size);
   }
 
   h2 {
-    font-size: 1.6em;
+    font-size: var(--base-heading2-size);
   }
 
   h3 {
-    font-size: 1.3em;
+    font-size: var(--base-heading3-size);
   }
 
   h4 {
-    font-size: 1em;
+    font-size: var(--base-heading4-size);
   }
 
+  table {
+    th {
+      border-bottom: 0;
+      text-align: left;
+    }
 
-table th,
-table td {
-  text-align: left;
-  border-bottom: 0;
-}
-table td{
-  padding-right: 40px;
-}
+    td {
+      border-bottom: 0;
+      padding-right: 40px;
+      text-align: left;
+    }
+  }
 
   pre,
   code {
-    font-family: 'Hasklig', monospace;
+    font-family: var(--base-code-font);
   }
+
   img,
   video,
   iframe {
     max-height: 95%;
     max-width: 95%;
   }
+
   iframe {
     height: 400px;
     width: 95%;
+  }
+
+  .present-progress {
+    background-color: var(--base-progress-color);
+    bottom: 0;
+    height: 3px;
+    left: 0;
+    position: absolute;
+    transition: 300ms transform cubic-bezier(0.26, 0.86, 0.44, 0.985);
+    width: 100%;
+    will-change: transform;
+    z-index: 0;
+  }
+  .present-slide-count {
+    bottom: 5px;
+    right: 5px;
+    position: absolute;
+    z-index: 0;
+    font-size: 15px;
   }
 }

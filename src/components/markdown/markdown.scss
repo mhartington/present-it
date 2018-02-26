@@ -6,4 +6,36 @@
     list-style-type: none;
     padding: 0;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--base-heading-font-family);
+    font-weight: var(--base-heading-font-weight);
+    letter-spacing: normal;
+    line-height: 1.2;
+    margin: var(--base-heading-margin);
+    text-shadow: none;
+    text-transform: uppercase;
+    word-wrap: break-word;
+  }
+
+  h1 {
+    font-size: var(--base-heading1-size);
+  }
+
+  h2 {
+    font-size: var(--base-heading2-size);
+  }
+
+  h3 {
+    font-size: var(--base-heading3-size);
+  }
+
+  h4 {
+    font-size: var(--base-heading4-size);
+  }
 }

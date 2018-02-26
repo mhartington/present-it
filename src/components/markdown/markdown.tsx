@@ -2,7 +2,7 @@ import { Component, Element } from '@stencil/core';
 import snarkdown from 'snarkdown';
 import { trimCode } from '../../util';
 @Component({
-  tag: 'reveal-md',
+  tag: 'present-md',
   styleUrl: 'markdown.scss',
   shadow: true
 })

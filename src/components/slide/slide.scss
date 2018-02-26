@@ -1,4 +1,4 @@
-reveal-slide {
+present-slide {
   bottom: 0;
   left: 0;
   opacity: 0;
@@ -8,7 +8,11 @@ reveal-slide {
   top: 0;
   width: 100%;
   pointer-events: none;
+  z-index: 2;
 
+  &.has-light-background{
+    color: #222;
+  }
   &.active,
   &.active > * {
     pointer-events: initial;

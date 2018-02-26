@@ -2,7 +2,7 @@ import { Component, Prop, Element } from '@stencil/core';
 import highlight from 'highlight.js';
 import { trimCode } from '../../util';
 @Component({
-  tag: 'reveal-code',
+  tag: 'present-code',
   styleUrl: 'code.scss',
   shadow: true
 })

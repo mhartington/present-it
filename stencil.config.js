@@ -3,6 +3,9 @@ const postcss = require('@stencil/postcss');
 const autoprefixer = require('autoprefixer');
 
 exports.config = {
+  namespace: 'present-it',
+  generateDistribution: true,
+  serviceWorker: false,
   plugins: [
     sass(),
     postcss({

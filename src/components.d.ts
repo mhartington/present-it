@@ -15,29 +15,29 @@ declare global {
 
 
 import {
-  Code as RevealCode
+  Code as PresentCode
 } from './components/code/code';
 
 declare global {
-  interface HTMLRevealCodeElement extends RevealCode, HTMLStencilElement {
+  interface HTMLPresentCodeElement extends PresentCode, HTMLStencilElement {
   }
-  var HTMLRevealCodeElement: {
-    prototype: HTMLRevealCodeElement;
-    new (): HTMLRevealCodeElement;
+  var HTMLPresentCodeElement: {
+    prototype: HTMLPresentCodeElement;
+    new (): HTMLPresentCodeElement;
   };
   interface HTMLElementTagNameMap {
-    "reveal-code": HTMLRevealCodeElement;
+    "present-code": HTMLPresentCodeElement;
   }
   interface ElementTagNameMap {
-    "reveal-code": HTMLRevealCodeElement;
+    "present-code": HTMLPresentCodeElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "reveal-code": JSXElements.RevealCodeAttributes;
+      "present-code": JSXElements.PresentCodeAttributes;
     }
   }
   namespace JSXElements {
-    export interface RevealCodeAttributes extends HTMLAttributes {
+    export interface PresentCodeAttributes extends HTMLAttributes {
       lang?: string;
     }
   }
@@ -45,59 +45,60 @@ declare global {
 
 
 import {
-  Deck as RevealDeck
+  Deck as PresentDeck
 } from './components/deck/deck';
 
 declare global {
-  interface HTMLRevealDeckElement extends RevealDeck, HTMLStencilElement {
+  interface HTMLPresentDeckElement extends PresentDeck, HTMLStencilElement {
   }
-  var HTMLRevealDeckElement: {
-    prototype: HTMLRevealDeckElement;
-    new (): HTMLRevealDeckElement;
+  var HTMLPresentDeckElement: {
+    prototype: HTMLPresentDeckElement;
+    new (): HTMLPresentDeckElement;
   };
   interface HTMLElementTagNameMap {
-    "reveal-deck": HTMLRevealDeckElement;
+    "present-deck": HTMLPresentDeckElement;
   }
   interface ElementTagNameMap {
-    "reveal-deck": HTMLRevealDeckElement;
+    "present-deck": HTMLPresentDeckElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "reveal-deck": JSXElements.RevealDeckAttributes;
+      "present-deck": JSXElements.PresentDeckAttributes;
     }
   }
   namespace JSXElements {
-    export interface RevealDeckAttributes extends HTMLAttributes {
-      
+    export interface PresentDeckAttributes extends HTMLAttributes {
+      showCount?: any;
+      showProgress?: any;
     }
   }
 }
 
 
 import {
-  Markdown as RevealMd
+  Markdown as PresentMd
 } from './components/markdown/markdown';
 
 declare global {
-  interface HTMLRevealMdElement extends RevealMd, HTMLStencilElement {
+  interface HTMLPresentMdElement extends PresentMd, HTMLStencilElement {
   }
-  var HTMLRevealMdElement: {
-    prototype: HTMLRevealMdElement;
-    new (): HTMLRevealMdElement;
+  var HTMLPresentMdElement: {
+    prototype: HTMLPresentMdElement;
+    new (): HTMLPresentMdElement;
   };
   interface HTMLElementTagNameMap {
-    "reveal-md": HTMLRevealMdElement;
+    "present-md": HTMLPresentMdElement;
   }
   interface ElementTagNameMap {
-    "reveal-md": HTMLRevealMdElement;
+    "present-md": HTMLPresentMdElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "reveal-md": JSXElements.RevealMdAttributes;
+      "present-md": JSXElements.PresentMdAttributes;
     }
   }
   namespace JSXElements {
-    export interface RevealMdAttributes extends HTMLAttributes {
+    export interface PresentMdAttributes extends HTMLAttributes {
       
     }
   }
@@ -105,29 +106,29 @@ declare global {
 
 
 import {
-  Slide as RevealSlide
+  Slide as PresentSlide
 } from './components/slide/slide';
 
 declare global {
-  interface HTMLRevealSlideElement extends RevealSlide, HTMLStencilElement {
+  interface HTMLPresentSlideElement extends PresentSlide, HTMLStencilElement {
   }
-  var HTMLRevealSlideElement: {
-    prototype: HTMLRevealSlideElement;
-    new (): HTMLRevealSlideElement;
+  var HTMLPresentSlideElement: {
+    prototype: HTMLPresentSlideElement;
+    new (): HTMLPresentSlideElement;
   };
   interface HTMLElementTagNameMap {
-    "reveal-slide": HTMLRevealSlideElement;
+    "present-slide": HTMLPresentSlideElement;
   }
   interface ElementTagNameMap {
-    "reveal-slide": HTMLRevealSlideElement;
+    "present-slide": HTMLPresentSlideElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "reveal-slide": JSXElements.RevealSlideAttributes;
+      "present-slide": JSXElements.PresentSlideAttributes;
     }
   }
   namespace JSXElements {
-    export interface RevealSlideAttributes extends HTMLAttributes {
+    export interface PresentSlideAttributes extends HTMLAttributes {
       active?: boolean;
       backgroundColor?: string;
       backgroundImage?: string;

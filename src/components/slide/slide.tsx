@@ -6,9 +6,9 @@ import {
   Event,
   EventEmitter
 } from '@stencil/core';
-
+import { isLightColor, hexToRgb } from '../../util';
 @Component({
-  tag: 'reveal-slide',
+  tag: 'present-slide',
   styleUrl: 'slide.scss'
 })
 export class Slide {
@@ -38,11 +38,28 @@ export class Slide {
     }
   }
   componentDidLoad() {
+    this.checkContrast();
     if (this.active === true) {
       this.slideDidChange.emit({
         backgroundColor: this.backgroundColor,
         backgroundImage: this.backgroundImage
       });
+    }
+  }
+  checkContrast() {
+    let color: any;
+    if (this.backgroundColor) {
+      if (this.backgroundColor.includes('#')) {
+        let hexConverted = this.backgroundColor.replace('#', '');
+        color = hexToRgb(hexConverted);
+      }
+      if (this.backgroundColor.includes('rgb')) {
+        color = this.backgroundColor.replace(/[^\d,]/g, '').split(',');
+      }
+      if (isLightColor(color)) {
+        console.log('isDarker')
+        this.el.classList.add('has-light-background');
+      }
     }
   }
   hostData() {

@@ -1,42 +1,42 @@
 {
-  "name": "@stencil/starter",
+  "name": "present-it",
   "private": true,
   "version": "0.0.1",
-  "description": "Stencil Starter App",
+  "description": "a simple presentation kit",
+  "main": "dist/present-it.js",
+  "browser": "dist/present-it.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
   ],
   "scripts": {
     "build": "stencil build --prerender",
-    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
-    "serve": "stencil-dev-server",
-    "start": "npm run dev"
+    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" "
   },
   "dependencies": {
-    "@stencil/core": "^0.6.0-0",
-    "@stencil/dev-server": "0.0.19-0",
-    "@stencil/utils": "latest",
-    "@types/highlight.js": "^9.12.2",
-    "@types/marked": "^0.3.0",
-    "@types/web-animations-js": "^2.2.5",
     "highlight.js": "^9.12.0",
     "history": "^4.7.2",
-    "marked": "^0.3.16",
     "snarkdown": "^1.2.2"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ionic-team/stencil-starter.git"
+    "url": "git+https://github.com/mhartington/present-it.git"
   },
-  "author": "Ionic Team",
+  "author": "Mike Hartington",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ionic-team/stencil"
+    "url": "https://github.com/mhartington/present-it"
   },
-  "homepage": "https://github.com/ionic-team/stencil",
+  "homepage": "https://github.com/mhartington/present-it",
   "devDependencies": {
+    "@stencil/core": "^0.6.8",
+    "@stencil/dev-server": "0.0.19-0",
     "@stencil/postcss": "0.0.2",
     "@stencil/sass": "0.0.2",
+    "@stencil/utils": "latest",
+    "@types/highlight.js": "^9.12.2",
+    "@types/web-animations-js": "^2.2.5",
     "autoprefixer": "^8.0.0"
   }
 }
