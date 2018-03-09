@@ -49,14 +49,17 @@ export class Slide {
   checkContrast() {
     let color: any;
     if (this.backgroundColor) {
-      if (this.backgroundColor.includes('#')) {
+      if (this.backgroundColor.startsWith('#')) {
+        console.log('is here?', this.backgroundColor)
         let hexConverted = this.backgroundColor.replace('#', '');
         color = hexToRgb(hexConverted);
       }
-      if (this.backgroundColor.includes('rgb')) {
+      if (this.backgroundColor.startsWith('rgb')) {
+
+        console.log('or is here?', this.backgroundColor)
         color = this.backgroundColor.replace(/[^\d,]/g, '').split(',');
       }
-      if (isLightColor(color)) {
+      if (color && isLightColor(color)) {
         console.log('isDarker')
         this.el.classList.add('has-light-background');
       }

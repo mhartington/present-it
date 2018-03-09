@@ -10,7 +10,7 @@ present-slide {
   pointer-events: none;
   z-index: 2;
 
-  &.has-light-background{
+  &.has-light-background {
     color: #222;
   }
   &.active,
@@ -19,14 +19,14 @@ present-slide {
     opacity: 1;
   }
   .slide-wrapper {
-  align-items: center;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  text-align: center;
-  margin: auto;
-  width: 80%;
-}
+    align-items: center;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+  }
 }

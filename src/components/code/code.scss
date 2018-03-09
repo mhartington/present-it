@@ -1,4 +1,15 @@
 :host {
+  ::selection {
+    color: var(--base-selection-color);
+    background: var(--base-selection-background-color);
+    text-shadow: none;
+  }
+
+  ::-moz-selection {
+    color: var(--base-selection-color);
+    background: var(--base-selection-background-color);
+    text-shadow: none;
+  }
   display: block;
   width: 90%;
 
@@ -31,81 +42,81 @@
   code {
     font-family: monospace;
   }
-}
 
-.hljs-comment,
-.hljs-title {
-  color: #a7adba;
-}
+  .hljs-comment,
+  .hljs-title {
+    color: #a7adba;
+  }
 
-.hljs-variable,
-.hljs-attribute,
-.hljs-tag,
-.hljs-regexp,
-.ruby .hljs-constant,
-.xml .hljs-tag .hljs-title,
-.xml .hljs-pi,
-.xml .hljs-doctype,
-.html .hljs-doctype,
-.css .hljs-id,
-.css .hljs-class,
-.css .hljs-pseudo {
-  color: #ec5f67;
-}
+  .hljs-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-regexp,
+  .ruby .hljs-constant,
+  .xml .hljs-tag .hljs-title,
+  .xml .hljs-pi,
+  .xml .hljs-doctype,
+  .html .hljs-doctype,
+  .css .hljs-id,
+  .css .hljs-class,
+  .css .hljs-pseudo {
+    color: #ec5f67;
+  }
 
-.hljs-preprocessor,
-.hljs-built_in,
-.hljs-literal,
-.hljs-params,
-.hljs-constant {
-  color: #f99157;
-}
+  .hljs-preprocessor,
+  .hljs-built_in,
+  .hljs-literal,
+  .hljs-params,
+  .hljs-constant {
+    color: #f99157;
+  }
 
-/* Oceanic Next Yellow */
-.ruby .hljs-class .hljs-title,
-.css .hljs-rules .hljs-attribute {
-  color: #fac863;
-}
+  /* Oceanic Next Yellow */
+  .ruby .hljs-class .hljs-title,
+  .css .hljs-rules .hljs-attribute {
+    color: #fac863;
+  }
 
-/* Oceanic Next Green */
-.hljs-string,
-.hljs-value,
-.hljs-inheritance,
-.hljs-header,
-.ruby .hljs-symbol,
-.xml .hljs-cdata {
-  color: #99c794;
-}
+  /* Oceanic Next Green */
+  .hljs-string,
+  .hljs-value,
+  .hljs-inheritance,
+  .hljs-header,
+  .ruby .hljs-symbol,
+  .xml .hljs-cdata {
+    color: #99c794;
+  }
 
-/* Oceanic Next Aqua */
-.css .hljs-hexcolor {
-  color: #5fb3b3;
-}
+  /* Oceanic Next Aqua */
+  .css .hljs-hexcolor {
+    color: #5fb3b3;
+  }
 
-/* Oceanic Next Blue */
-.hljs-function,
-.python .hljs-decorator,
-.python .hljs-title,
-.ruby .hljs-function .hljs-title,
-.ruby .hljs-title .hljs-keyword,
-.perl .hljs-sub,
-.javascript .hljs-title,
-.coffeescript .hljs-title {
-  color: #6699cc;
-}
+  /* Oceanic Next Blue */
+  .hljs-function,
+  .python .hljs-decorator,
+  .python .hljs-title,
+  .ruby .hljs-function .hljs-title,
+  .ruby .hljs-title .hljs-keyword,
+  .perl .hljs-sub,
+  .javascript .hljs-title,
+  .coffeescript .hljs-title {
+    color: #6699cc;
+  }
 
-/* Oceanic Next Purple */
-.hljs-keyword,
-.javascript .hljs-function {
-  color: #c594c5;
-}
+  /* Oceanic Next Purple */
+  .hljs-keyword,
+  .javascript .hljs-function {
+    color: #c594c5;
+  }
 
-.coffeescript .javascript,
-.javascript .xml,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata {
-  opacity: 0.5;
+  .coffeescript .javascript,
+  .javascript .xml,
+  .tex .hljs-formula,
+  .xml .javascript,
+  .xml .vbscript,
+  .xml .css,
+  .xml .hljs-cdata {
+    opacity: 0.5;
+  }
 }

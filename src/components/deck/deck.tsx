@@ -13,6 +13,7 @@ export class Deck {
   history = createHashHistory();
 
   @State() backgroundColor: string = 'transparent';
+  @State() backgroundImage: string = 'none';
   @Element() deck: HTMLElement;
 
   componentWillLoad() {
@@ -43,6 +44,7 @@ export class Deck {
   @Listen('slideDidChange')
   slideDidChangeHandler(event) {
     this.setBackgroundColor(event.detail.backgroundColor);
+    this.setBackgroundImage(event.detail.backgroundImage);
   }
 
   @Listen('window:keydown.right')
@@ -95,6 +97,14 @@ export class Deck {
     }
   }
 
+  protected setBackgroundImage(img) {
+    if (img !== undefined) {
+      this.backgroundImage =  `url("${img}")`
+    } else {
+      this.backgroundImage = 'none';
+    }
+  }
+
   render() {
     const renderContent: Array<any> = [
       <div class="present-slides">
@@ -103,7 +113,14 @@ export class Deck {
       <div
         class="present-background-color"
         style={{
-          backgroundColor: this.backgroundColor
+          background: this.backgroundColor
+        }}
+        />,
+
+      <div
+        class="present-background-image"
+        style={{
+          backgroundImage: this.backgroundImage
         }}
       />
     ];
