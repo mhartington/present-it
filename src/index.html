@@ -58,6 +58,10 @@
       <h3>Can even do rgb/rgba</h3>
       <p><code>background-color="rgb(20,122,12)"</code></p>
     </present-slide>
+    <present-slide background-color="radial-gradient(ellipse at center, #4c4c4c 0%,#000000 100%)">
+      <h3>Maybe some gradients</h3>
+      <p><code>radial-gradient(ellipse at center, #4c4c4c 0%,#000000 100%)</code></p>
+    </present-slide>
     <present-slide background-color="rgb(255,255,255)">
       <h4>This slide has the class <code>has-light-background</code></h4>
       <p>Color contrast can be checked</p>
@@ -86,8 +90,26 @@
         }
         window.customElements.define('hello-world', HelloWolrd);
       </present-code>
+      <!-- <present-slide animation="customAnimation">
+        <h1>Animations</h1>
+      </present-slide> -->
     </present-slide>
   </present-deck>
+
+  <!-- <script>  
+      function customAnimation(el, "enter") {
+        console.log('test?')
+        let animationBuilder;
+        const easeTiming = { duration: 300, easing: 'cubic-bezier(0.26, 0.86, 0.44, 0.985)' };
+        if (direction === 'enter') {
+          animationBuilder = new KeyframeEffect(el, [{ opacity: 0 }, { opacity: 1 }], easeTiming)
+        }
+        if (direction === 'leave') {
+          animationBuilder = new KeyframeEffect(el, [{ opacity: 1 }, { opacity: 0 }], easeTiming)
+        }
+        return new Animation(animationBuilder, document.timeline);
+      }
+  </script> -->
 </body>
 
 

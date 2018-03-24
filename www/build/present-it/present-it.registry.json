@@ -1,0 +1,21 @@
+{
+  "namespace": "PresentIt",
+  "fsNamespace": "present-it",
+  "loader": "../present-it.js",
+  "core": "present-it.7r4rrimo.js",
+  "corePolyfilled": "present-it.obif2ohr.js",
+  "components": {
+    "present-code": {
+      "$": "p9gapr44"
+    },
+    "present-deck": {
+      "$": "jkldojkl"
+    },
+    "present-md": {
+      "$": "97erpd8g"
+    },
+    "present-slide": {
+      "$": "bnfkf1gl"
+    }
+  }
+}

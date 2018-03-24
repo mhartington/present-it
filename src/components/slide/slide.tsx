@@ -7,36 +7,43 @@ import {
   EventEmitter
 } from '@stencil/core';
 import { isLightColor, hexToRgb } from '../../util';
+import { slideFade } from './transition/fade'
 @Component({
   tag: 'present-slide',
   styleUrl: 'slide.scss'
 })
 export class Slide {
   @Prop() active: boolean = false;
+  @Prop() animation = slideFade;
   @Prop() backgroundColor: string;
   @Prop() backgroundImage: string;
   @Event() slideDidChange: EventEmitter;
   @Element() el: HTMLElement;
 
+  @Watch('backgroundColor')
+  @Watch('backgroundImage')
+  onPropsDidChange() {
+    this.slideDidChange.emit({
+      backgroundColor: this.backgroundColor,
+      backgroundImage: this.backgroundImage
+    });
+  }
+
   @Watch('active')
   watchHandler() {
+    let animation = this.animation;
     if (this.active === true) {
-      this.el.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 300,
-        easing: 'cubic-bezier(0.26, 0.86, 0.44, 0.985)'
-      });
+      animation(this.el, 'enter').play();
       this.slideDidChange.emit({
         backgroundColor: this.backgroundColor,
         backgroundImage: this.backgroundImage
       });
     }
     if (this.active === false) {
-      this.el.animate([{ opacity: 1 }, { opacity: 0 }], {
-        duration: 300,
-        easing: 'cubic-bezier(0.26, 0.86, 0.44, 0.985)'
-      });
+      animation(this.el, 'leave').play();
     }
   }
+
   componentDidLoad() {
     this.checkContrast();
     if (this.active === true) {
@@ -50,17 +57,13 @@ export class Slide {
     let color: any;
     if (this.backgroundColor) {
       if (this.backgroundColor.startsWith('#')) {
-        console.log('is here?', this.backgroundColor)
         let hexConverted = this.backgroundColor.replace('#', '');
         color = hexToRgb(hexConverted);
       }
       if (this.backgroundColor.startsWith('rgb')) {
-
-        console.log('or is here?', this.backgroundColor)
         color = this.backgroundColor.replace(/[^\d,]/g, '').split(',');
       }
       if (color && isLightColor(color)) {
-        console.log('isDarker')
         this.el.classList.add('has-light-background');
       }
     }

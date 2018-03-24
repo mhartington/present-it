@@ -1,5 +1,5 @@
 import { Component, Element, Listen, Prop, State } from '@stencil/core';
-import createHashHistory from 'history/createHashHistory';
+import Store from '../../store';
 @Component({
   tag: `present-deck`,
   styleUrl: 'deck.scss'
@@ -9,8 +9,7 @@ export class Deck {
   @Prop() showCount;
   @Prop() showProgress;
 
-  @State() activeIndex = 0;
-  history = createHashHistory();
+  @State() store: Store;
 
   @State() backgroundColor: string = 'transparent';
   @State() backgroundImage: string = 'none';
@@ -18,26 +17,13 @@ export class Deck {
 
   componentWillLoad() {
     this.slides = Array.from(this.deck.querySelectorAll('present-slide'));
-    this.checkSlide(this.history.location);
-    this.history.listen(location => {
-      this.checkSlide(location);
-    });
-  }
-
-  checkSlide(location) {
-    const urlHash = parseInt(location.pathname.replace('/', ''), 10);
-    if (isNaN(urlHash) || urlHash > this.slides.length - 1) {
-      this.history.push('/0');
-      this.handleSlides();
-    } else {
-      this.activeIndex = urlHash;
-      this.handleSlides();
-    }
+    this.store = new Store({ activeIndex: 0, slideLength: this.slides.length });
+    this.handleSlides();
   }
 
   handleSlides() {
     this.slides.forEach((slide, index) => {
-      slide.active = index === this.activeIndex;
+      slide.active = index === this.store.state.activeIndex;
     });
   }
 
@@ -50,9 +36,10 @@ export class Deck {
   @Listen('window:keydown.right')
   protected next(event) {
     event.preventDefault();
-    if (this.activeIndex < this.slides.length - 1) {
-      this.activeIndex++;
-      this.history.push(`${this.activeIndex}`);
+    const state = this.store.state;
+    if (state.activeIndex < this.slides.length - 1) {
+      const payload = { ...state, activeIndex: state.activeIndex += 1 };
+      this.store.set('NEXT', payload);
       this.handleSlides();
     }
   }
@@ -60,9 +47,10 @@ export class Deck {
   @Listen('window:keydown.left')
   protected prev(event) {
     event.preventDefault();
-    if (this.activeIndex > 0) {
-      this.activeIndex--;
-      this.history.push(`${this.activeIndex}`);
+    const state = this.store.state;
+    if (state.activeIndex > 0) {
+      const payload = { ...state, activeIndex: state.activeIndex -= 1 };
+      this.store.set('PREV', payload);
       this.handleSlides();
     }
   }
@@ -99,7 +87,7 @@ export class Deck {
 
   protected setBackgroundImage(img) {
     if (img !== undefined) {
-      this.backgroundImage =  `url("${img}")`
+      this.backgroundImage = `url("${img}")`;
     } else {
       this.backgroundImage = 'none';
     }
@@ -115,7 +103,7 @@ export class Deck {
         style={{
           background: this.backgroundColor
         }}
-        />,
+      />,
 
       <div
         class="present-background-image"
@@ -124,14 +112,6 @@ export class Deck {
         }}
       />
     ];
-    if (this.showProgress) {
-      renderContent.push(
-        <div class="present-progress" style={{transform: `translate3d(-${100 -this.activeIndex / (this.slides.length - 1) * 100}%, 0,0)`}}/>
-      );
-    }
-    if (this.showCount) {
-      renderContent.push(<div class="present-slide-count">{this.activeIndex + 1}/{this.slides.length}</div>);
-    };
     return renderContent;
   }
 }

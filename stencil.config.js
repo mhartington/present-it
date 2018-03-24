@@ -4,8 +4,8 @@ const autoprefixer = require('autoprefixer');
 
 exports.config = {
   namespace: 'present-it',
-  generateDistribution: true,
-  serviceWorker: false,
+  outputTargets: [{ type: 'dist' }, { type: 'www' }],
+  enableCache: false,
   plugins: [
     sass(),
     postcss({
