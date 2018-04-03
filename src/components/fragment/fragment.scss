@@ -1,0 +1,10 @@
+present-fragment {
+  * {
+    opacity: 0;
+    transition: var(--base-animation-duration) opacity var(--base-animation-easing);
+  }
+
+  &[active='true'] * {
+    opacity: 1;
+  }
+}

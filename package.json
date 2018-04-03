@@ -1,7 +1,7 @@
 {
   "name": "present-it",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a simple presentation kit",
   "main": "dist/present-it.js",
   "browser": "dist/present-it.js",

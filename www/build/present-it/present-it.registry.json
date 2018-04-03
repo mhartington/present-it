@@ -2,20 +2,24 @@
   "namespace": "PresentIt",
   "fsNamespace": "present-it",
   "loader": "../present-it.js",
-  "core": "present-it.7r4rrimo.js",
-  "corePolyfilled": "present-it.obif2ohr.js",
+  "corePolyfilled": "es5-build-disabled.js",
+  "global": "present-it.global.js",
+  "core": "present-it.core.js",
   "components": {
     "present-code": {
-      "$": "p9gapr44"
+      "$": "present-code"
     },
     "present-deck": {
-      "$": "jkldojkl"
+      "$": "present-deck"
+    },
+    "present-fragment": {
+      "$": "present-fragment"
     },
     "present-md": {
-      "$": "97erpd8g"
+      "$": "present-md"
     },
     "present-slide": {
-      "$": "bnfkf1gl"
+      "$": "present-slide"
     }
   }
 }

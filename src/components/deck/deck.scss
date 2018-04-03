@@ -35,6 +35,9 @@
   --base-selection-color: #fff;
 
   --base-progress-color: #0072bc;
+
+  --base-animation-duration: 300ms;
+  --base-animation-easing: cubic-bezier(0.26, 0.86, 0.44, 0.985);
 }
 
 html,
@@ -89,7 +92,8 @@ present-deck {
     position: absolute;
     right: 0;
     top: 0;
-    transition: background 300ms ease-in;
+    transition: var(--base-animation-duration) background var(--base-animation-easing);
+    will-change: background;
     width: 100%;
   }
 
@@ -102,7 +106,6 @@ present-deck {
     position: absolute;
     right: 0;
     top: 0;
-    transition: background 300ms ease-in;
     width: 100%;
     z-index: 1;
   }
@@ -175,7 +178,7 @@ present-deck {
     height: 3px;
     left: 0;
     position: absolute;
-    transition: 300ms transform cubic-bezier(0.26, 0.86, 0.44, 0.985);
+    transition: var(--base-animation-duration) transform var(--base-animation-easing);
     width: 100%;
     will-change: transform;
     z-index: 0;

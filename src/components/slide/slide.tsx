@@ -4,17 +4,23 @@ import {
   Watch,
   Element,
   Event,
-  EventEmitter
+  EventEmitter,
+  Listen
 } from '@stencil/core';
 import { isLightColor, hexToRgb } from '../../util';
-import { slideFade } from './transition/fade'
+import { fadeTransition } from './transition/fade';
 @Component({
   tag: 'present-slide',
   styleUrl: 'slide.scss'
 })
 export class Slide {
-  @Prop() active: boolean = false;
-  @Prop() animation = slideFade;
+  fragments: Array<HTMLPresentFragmentElement> = [];
+  activeIndex = 0;
+
+  @Prop({ reflectToAttr: true })
+  active = false;
+
+  @Prop() animation = fadeTransition;
   @Prop() backgroundColor: string;
   @Prop() backgroundImage: string;
   @Event() slideDidChange: EventEmitter;
@@ -44,7 +50,45 @@ export class Slide {
     }
   }
 
-  componentDidLoad() {
+  nextFragment(activeIndex) {
+    this.fragments[this.activeIndex].active = true;
+    this.activeIndex = activeIndex;
+    this.updateQuery();
+  }
+
+  prevFragment(activeIndex) {
+    this.fragments[activeIndex].active = false;
+    this.activeIndex = activeIndex;
+    this.updateQuery();
+  }
+  updateQuery() {
+    console.log(this.activeIndex);
+  }
+
+  @Listen('window:keydown.right', { capture: true })
+  onNext(e: Event) {
+    e.preventDefault();
+    if (
+      this.active &&
+      this.fragments.length > 0 &&
+      !(this.activeIndex === this.fragments.length)
+    ) {
+      e.cancelBubble = true;
+      this.nextFragment(this.activeIndex + 1);
+    }
+  }
+
+  @Listen('window:keydown.left', { capture: true })
+  onPrev(e: Event) {
+    e.preventDefault();
+    if (this.active && this.fragments.length > 0 && !(this.activeIndex === 0)) {
+      e.cancelBubble = true;
+      this.prevFragment(this.activeIndex - 1);
+    }
+  }
+
+  componentWillLoad() {
+    this.fragments = Array.from(this.el.querySelectorAll('present-fragment'));
     this.checkContrast();
     if (this.active === true) {
       this.slideDidChange.emit({
@@ -53,6 +97,7 @@ export class Slide {
       });
     }
   }
+
   checkContrast() {
     let color: any;
     if (this.backgroundColor) {
@@ -67,13 +112,6 @@ export class Slide {
         this.el.classList.add('has-light-background');
       }
     }
-  }
-  hostData() {
-    return {
-      class: {
-        active: this.active
-      }
-    };
   }
   render() {
     return (

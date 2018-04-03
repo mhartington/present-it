@@ -45,7 +45,7 @@
 </head>
 
 <body>
-  <present-deck show-progress="true">
+  <present-deck show-progress="true" show-count="true">
     <present-slide>
       <h1>This is Present-It</h1>
       <p>A Slide Deck built with Web Components</p>
@@ -57,10 +57,6 @@
     <present-slide background-color="rgba(20,122,12,0.5)">
       <h3>Can even do rgb/rgba</h3>
       <p><code>background-color="rgb(20,122,12)"</code></p>
-    </present-slide>
-    <present-slide background-color="radial-gradient(ellipse at center, #4c4c4c 0%,#000000 100%)">
-      <h3>Maybe some gradients</h3>
-      <p><code>radial-gradient(ellipse at center, #4c4c4c 0%,#000000 100%)</code></p>
     </present-slide>
     <present-slide background-color="rgb(255,255,255)">
       <h4>This slide has the class <code>has-light-background</code></h4>
@@ -90,26 +86,33 @@
         }
         window.customElements.define('hello-world', HelloWolrd);
       </present-code>
-      <!-- <present-slide animation="customAnimation">
-        <h1>Animations</h1>
-      </present-slide> -->
+    </present-slide>
+    <present-slide>
+      <h1>Fragment</h1>
+      <div>
+        <present-fragment><p>Hello1</p></present-fragment>
+        <present-fragment><p>Hello2</p></present-fragment>
+        <present-fragment><p>Hello3</p></present-fragment>
+        <present-fragment><p>Hello4</p></present-fragment>
+      </div>
+    </present-slide>
+    <present-slide>
+      <h1>Dynamic color</h1>
+      <input type="color" value="#313744" onchange="changeBackground(event)">
+      <br>
+
+      <button onclick="resetBackground()"> Alright, enough of that.</button>
+
+    </present-slide>
+    <present-slide>
+      &lt;/html&gt;
     </present-slide>
   </present-deck>
 
-  <!-- <script>  
-      function customAnimation(el, "enter") {
-        console.log('test?')
-        let animationBuilder;
-        const easeTiming = { duration: 300, easing: 'cubic-bezier(0.26, 0.86, 0.44, 0.985)' };
-        if (direction === 'enter') {
-          animationBuilder = new KeyframeEffect(el, [{ opacity: 0 }, { opacity: 1 }], easeTiming)
-        }
-        if (direction === 'leave') {
-          animationBuilder = new KeyframeEffect(el, [{ opacity: 1 }, { opacity: 0 }], easeTiming)
-        }
-        return new Animation(animationBuilder, document.timeline);
-      }
-  </script> -->
+  <script>
+      const resetBackground = () => document.body.style.setProperty('--base-background-color', '#313744');
+      const changeBackground = (e) => document.body.style.setProperty('--base-background-color', e.target.value);
+  </script>
 </body>
 
 

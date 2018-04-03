@@ -81,6 +81,33 @@ declare global {
 
 
 declare global {
+  interface HTMLPresentFragmentElement extends HTMLStencilElement {
+    'active': boolean;
+  }
+  var HTMLPresentFragmentElement: {
+    prototype: HTMLPresentFragmentElement;
+    new (): HTMLPresentFragmentElement;
+  };
+  interface HTMLElementTagNameMap {
+    'present-fragment': HTMLPresentFragmentElement;
+  }
+  interface ElementTagNameMap {
+    'present-fragment': HTMLPresentFragmentElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'present-fragment': JSXElements.PresentFragmentAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface PresentFragmentAttributes extends HTMLAttributes {
+      'active'?: boolean;
+    }
+  }
+}
+
+
+declare global {
   interface HTMLPresentMdElement extends HTMLStencilElement {
 
   }

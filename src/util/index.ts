@@ -58,11 +58,8 @@ export function hexToRgb(hex: string): [number, number, number] {
   return null;
 }
 
-export function isLightColor(rgb: [string, string, string]): boolean {
-  let o = Math.round(
-    (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) /
-      1000
-  );
+export function isLightColor(rgb: [number, number, number]): boolean {
+  let o = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
   if (o > 125) {
     return true;
   } else {

@@ -13,8 +13,8 @@ present-slide {
   &.has-light-background {
     color: #222;
   }
-  &.active,
-  &.active > * {
+  &[active=true],
+  &[active=true] > * {
     pointer-events: initial;
     opacity: 1;
   }

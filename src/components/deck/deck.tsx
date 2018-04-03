@@ -1,15 +1,16 @@
 import { Component, Element, Listen, Prop, State } from '@stencil/core';
-import Store from '../../store';
+import createHashHistory from 'history/createHashHistory';
 @Component({
   tag: `present-deck`,
   styleUrl: 'deck.scss'
 })
 export class Deck {
-  slides: Array<any> = [];
+  slides: Array<HTMLPresentSlideElement> = [];
   @Prop() showCount;
   @Prop() showProgress;
 
-  @State() store: Store;
+  @State() activeIndex = 0;
+  history = createHashHistory();
 
   @State() backgroundColor: string = 'transparent';
   @State() backgroundImage: string = 'none';
@@ -17,14 +18,28 @@ export class Deck {
 
   componentWillLoad() {
     this.slides = Array.from(this.deck.querySelectorAll('present-slide'));
-    this.store = new Store({ activeIndex: 0, slideLength: this.slides.length });
+    this.checkSlide(this.history.location);
+    this.history.listen(location => {
+      this.checkSlide(location);
+    });
     this.handleSlides();
   }
 
   handleSlides() {
     this.slides.forEach((slide, index) => {
-      slide.active = index === this.store.state.activeIndex;
+      slide.active = index === this.activeIndex;
     });
+  }
+
+  checkSlide(location) {
+    const urlHash = parseInt(location.pathname.replace('/', ''), 10);
+    if (isNaN(urlHash) || urlHash > this.slides.length - 1) {
+      this.history.push('/0');
+      this.handleSlides();
+    } else {
+      this.activeIndex = urlHash;
+      this.handleSlides();
+    }
   }
 
   @Listen('slideDidChange')
@@ -36,22 +51,22 @@ export class Deck {
   @Listen('window:keydown.right')
   protected next(event) {
     event.preventDefault();
-    const state = this.store.state;
-    if (state.activeIndex < this.slides.length - 1) {
-      const payload = { ...state, activeIndex: state.activeIndex += 1 };
-      this.store.set('NEXT', payload);
-      this.handleSlides();
+    if (this.activeIndex < this.slides.length - 1) {
+      this.updateRoute(this.activeIndex + 1);
     }
+  }
+
+  updateRoute(activeIndex: number) {
+    this.activeIndex = activeIndex;
+    this.history.push(`${this.activeIndex}`);
+    this.handleSlides();
   }
 
   @Listen('window:keydown.left')
   protected prev(event) {
     event.preventDefault();
-    const state = this.store.state;
-    if (state.activeIndex > 0) {
-      const payload = { ...state, activeIndex: state.activeIndex -= 1 };
-      this.store.set('PREV', payload);
-      this.handleSlides();
+    if (this.activeIndex > 0) {
+      this.updateRoute(this.activeIndex - 1);
     }
   }
 
@@ -98,6 +113,7 @@ export class Deck {
       <div class="present-slides">
         <slot />
       </div>,
+
       <div
         class="present-background-color"
         style={{
@@ -112,6 +128,24 @@ export class Deck {
         }}
       />
     ];
+    if (this.showProgress) {
+      renderContent.push(
+        <div
+          class="present-progress"
+          style={{
+            transform: `translate3d(-${100 -
+              this.activeIndex / (this.slides.length - 1) * 100}%, 0,0)`
+          }}
+        />
+      );
+    }
+    if (this.showCount) {
+      renderContent.push(
+        <div class="present-slide-count">
+          {this.activeIndex + 1}/{this.slides.length}
+        </div>
+      );
+    }
     return renderContent;
   }
 }
