@@ -1,6 +1,6 @@
 {
   "name": "present-it",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a simple presentation kit",
   "main": "dist/present-it.js",
   "browser": "dist/present-it.js",
