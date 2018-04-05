@@ -1,6 +1,5 @@
 {
   "name": "present-it",
-  "private": false,
   "version": "0.0.2",
   "description": "a simple presentation kit",
   "main": "dist/present-it.js",
@@ -30,7 +29,7 @@
   },
   "homepage": "https://github.com/mhartington/present-it",
   "devDependencies": {
-    "@stencil/core": "^0.7.7",
+    "@stencil/core": "^0.7.12",
     "@stencil/dev-server": "0.0.18",
     "@stencil/postcss": "0.0.4",
     "@stencil/sass": "0.0.3",

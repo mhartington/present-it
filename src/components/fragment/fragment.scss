@@ -4,7 +4,7 @@ present-fragment {
     transition: var(--base-animation-duration) opacity var(--base-animation-easing);
   }
 
-  &[active='true'] * {
+  &.active * {
     opacity: 1;
   }
 }

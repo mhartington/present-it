@@ -17,7 +17,7 @@ export class Slide {
   fragments: Array<HTMLPresentFragmentElement> = [];
   activeIndex = 0;
 
-  @Prop({ reflectToAttr: true })
+  @Prop()
   active = false;
 
   @Prop() animation = fadeTransition;
@@ -47,6 +47,14 @@ export class Slide {
     }
     if (this.active === false) {
       animation(this.el, 'leave').play();
+    }
+  }
+
+  hostData(){
+    return {
+      class: {
+        'active': this.active
+      }
     }
   }
 
