@@ -17,8 +17,7 @@ export class Slide {
   fragments: Array<HTMLPresentFragmentElement> = [];
   activeIndex = 0;
 
-  @Prop()
-  active = false;
+  @Prop() active = false;
 
   @Prop() animation = fadeTransition;
   @Prop() backgroundColor: string;
@@ -50,12 +49,12 @@ export class Slide {
     }
   }
 
-  hostData(){
+  hostData() {
     return {
       class: {
-        'active': this.active
+        active: this.active
       }
-    }
+    };
   }
 
   nextFragment(activeIndex) {
@@ -63,7 +62,6 @@ export class Slide {
     this.activeIndex = activeIndex;
     this.updateQuery();
   }
-
   prevFragment(activeIndex) {
     this.fragments[activeIndex].active = false;
     this.activeIndex = activeIndex;
@@ -121,6 +119,7 @@ export class Slide {
       }
     }
   }
+
   render() {
     return (
       <div class="slide-wrapper">

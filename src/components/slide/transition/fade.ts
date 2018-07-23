@@ -1,7 +1,6 @@
 export function fadeTransition(el: HTMLElement, direction: 'enter' | 'leave') {
   let animationBuilder;
   const easeTiming = {
-    // duration: 0,
     duration: 300,
     easing: 'cubic-bezier(0.26, 0.86, 0.44, 0.985)'
   };

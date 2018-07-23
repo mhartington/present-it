@@ -6,8 +6,8 @@ import createHashHistory from 'history/createHashHistory';
 })
 export class Deck {
   slides: Array<HTMLPresentSlideElement> = [];
-  @Prop() showCount;
-  @Prop() showProgress;
+  @Prop() showCount = true;
+  @Prop() showProgress = true;
 
   @State() activeIndex = 0;
   history = createHashHistory();
@@ -93,19 +93,11 @@ export class Deck {
   }
 
   protected setBackgroundColor(bg) {
-    if (bg !== undefined) {
-      this.backgroundColor = bg;
-    } else {
-      this.backgroundColor = 'transparent';
-    }
+    this.backgroundColor = bg ? bg : 'transparent';
   }
 
   protected setBackgroundImage(img) {
-    if (img !== undefined) {
-      this.backgroundImage = `url("${img}")`;
-    } else {
-      this.backgroundImage = 'none';
-    }
+    this.backgroundImage = img ? `url("${img}")` : 'none'
   }
 
   render() {
